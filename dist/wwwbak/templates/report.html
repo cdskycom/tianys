@@ -1,0 +1,136 @@
+{% extends 'tianysbase.html' %}
+
+{% block title %} 概览 {% endblock %}
+
+{% block beforehead %}
+
+
+{% endblock %}
+
+{% block content %}
+ <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        数学口算成绩
+        <small>上报,查看</small>
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section id="app" class="content container-fluid" v-cloak>
+        <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title"></h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+           
+              <div class="box-body form-horizontal">
+                <div class="form-group">
+                  <label for="inputDate" class="col-sm-2 control-label">日期</label>
+
+                  <div class="col-sm-10">
+                    <input type="date"  id="inputDate" placeholder="日期" v-model="calDate">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputMin" class="col-sm-2 control-label">用时</label>
+
+
+                  <div class="col-sm-10">
+                    <input type="text"  style="width:60px" id="inputMin" placeholder="分钟" v-model="minutes">分
+                    <input type="text"  style="width:60px"  placeholder="秒" v-model="seconds">秒
+                    
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputError" class="col-sm-2 control-label">错题数量</label>
+
+                  <div class="col-sm-10">
+                    <input type="text"  id="inputError" placeholder="0" v-model="errors">
+                  </div>
+                </div>
+              
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button  class="btn btn-info pull-right" v-on:click=submitCal>提交</button>
+              </div>
+              <!-- /.box-footer -->
+            
+      </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">最近 {{ days+1 }} 天口算成绩</h3>
+              <div class="pull-right hidden-xs" ><input type="text" v-model="newDays"></input><button class="btn btn-info btn-small" v-on:click="adjustDays">GO</button></div>
+              <div class="visible-xs" ><input type="text" v-model="newDays"></input><button class="btn btn-info btn-small" v-on:click="adjustDays">GO</button></div>
+            </div>  
+            
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <table class="table">
+                <tbody>
+                <tr>
+                  
+                  <th >姓名</th>
+                  <th >日期</th>
+                  <th >计时</th>
+                  <th >错题数量</th>
+                </tr>
+                <tr v-for="cal in cals">
+                  
+                  <td><span>{{ cal.student.name }}</span></td>
+                  <td><span >{{ cal.cal_date | DateTimeFtt }}</span></td>
+                  <td><span >{{ cal.consuming_time | consumingTimeToStr}}</span></td>
+                  <td><span >{{ cal.error_count }}</span></td>
+                  
+                </tr>
+               
+              </tbody></table>
+             
+            </div>
+            <div class="box-footer clearfix">
+              
+            </div>
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
+
+
+
+
+          <div class="modal fade in" id="modal-message" style="display: none;">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title"><span>{{ messageTitle }}</span></h4>
+                </div>
+                <div class="modal-body">
+                  <p><span>{{ message }}</span></p>
+                </div>
+            <!-- /.modal-dialog -->
+              </div>
+            </div>
+          </div>
+
+    </section>
+    <!-- /.content -->
+    <script type="text/javascript">
+        var userinfo = {
+                   uid: '{{{ __user__.id }}}'
+                   
+        };
+        
+
+    </script>
+    <script src="/static/js/report.js?+Math.random()"></script>
+
+{% endblock %}

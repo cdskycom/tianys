@@ -1,0 +1,953 @@
+ERROR:aiohttp.server:Error handling request
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/usr/local/Cellar/python/3.6.4_3/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py", line 724, in create_connection
+    raise err
+  File "/usr/local/Cellar/python/3.6.4_3/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2158, in _wrap_pool_connect
+    return fn()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 400, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 788, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 529, in checkout
+    rec = pool._do_get()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1193, in _do_get
+    self._dec_overflow()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 249, in reraise
+    raise value
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1190, in _do_get
+    return self._create_connection()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 347, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 474, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 671, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/strategies.py", line 106, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 412, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_protocol.py", line 390, in start
+    resp = await self._request_handler(request)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_app.py", line 366, in _handle
+    resp = await handler(request)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_middlewares.py", line 106, in impl
+    return await handler(request)
+  File "tianys.py", line 41, in logger
+    return (await handler(request))
+  File "tianys.py", line 68, in response
+    r = await handler(request)
+  File "tianys.py", line 61, in auth
+    return ( await handler(request))
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_urldispatcher.py", line 120, in handler_wrapper
+    result = await result
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/coroweb.py", line 146, in __call__
+    r = self._func(**kw)  # 数据库和字典部分不支持异步
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/coroweb.py", line 30, in wrapper
+    return func(*args, **kw)
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/handlers.py", line 163, in authenticate
+    users = User.getAll(*filters)
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/orm.py", line 71, in getAll
+    users = session.query(User).filter(*filters).all()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2843, in all
+    return list(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2995, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3016, in _execute_and_instances
+    close_with_result=True)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3025, in _get_bind_args
+    **kw
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3007, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1035, in connection
+    execution_options=execution_options)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1040, in _connection_for_bind
+    engine, execution_options)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 409, in _connection_for_bind
+    conn = bind.contextual_connect()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2123, in contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2162, in _wrap_pool_connect
+    e, dialect, self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1476, in _handle_dbapi_exception_noconnection
+    exc_info
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 265, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 248, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2158, in _wrap_pool_connect
+    return fn()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 400, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 788, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 529, in checkout
+    rec = pool._do_get()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1193, in _do_get
+    self._dec_overflow()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 249, in reraise
+    raise value
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1190, in _do_get
+    return self._create_connection()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 347, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 474, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 671, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/strategies.py", line 106, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 412, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)") (Background on this error at: http://sqlalche.me/e/e3q8)
+ERROR:aiohttp.server:Error handling request
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/usr/local/Cellar/python/3.6.4_3/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py", line 724, in create_connection
+    raise err
+  File "/usr/local/Cellar/python/3.6.4_3/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2158, in _wrap_pool_connect
+    return fn()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 400, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 788, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 529, in checkout
+    rec = pool._do_get()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1193, in _do_get
+    self._dec_overflow()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 249, in reraise
+    raise value
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1190, in _do_get
+    return self._create_connection()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 347, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 474, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 671, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/strategies.py", line 106, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 412, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_protocol.py", line 390, in start
+    resp = await self._request_handler(request)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_app.py", line 366, in _handle
+    resp = await handler(request)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_middlewares.py", line 106, in impl
+    return await handler(request)
+  File "tianys.py", line 41, in logger
+    return (await handler(request))
+  File "tianys.py", line 68, in response
+    r = await handler(request)
+  File "tianys.py", line 61, in auth
+    return ( await handler(request))
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_urldispatcher.py", line 120, in handler_wrapper
+    result = await result
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/coroweb.py", line 146, in __call__
+    r = self._func(**kw)  # 数据库和字典部分不支持异步
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/coroweb.py", line 30, in wrapper
+    return func(*args, **kw)
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/handlers.py", line 163, in authenticate
+    users = User.getAll(*filters)
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/orm.py", line 71, in getAll
+    users = session.query(User).filter(*filters).all()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2843, in all
+    return list(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2995, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3016, in _execute_and_instances
+    close_with_result=True)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3025, in _get_bind_args
+    **kw
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3007, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1035, in connection
+    execution_options=execution_options)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1040, in _connection_for_bind
+    engine, execution_options)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 409, in _connection_for_bind
+    conn = bind.contextual_connect()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2123, in contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2162, in _wrap_pool_connect
+    e, dialect, self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1476, in _handle_dbapi_exception_noconnection
+    exc_info
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 265, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 248, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2158, in _wrap_pool_connect
+    return fn()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 400, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 788, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 529, in checkout
+    rec = pool._do_get()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1193, in _do_get
+    self._dec_overflow()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 249, in reraise
+    raise value
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1190, in _do_get
+    return self._create_connection()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 347, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 474, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 671, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/strategies.py", line 106, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 412, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)") (Background on this error at: http://sqlalche.me/e/e3q8)
+ERROR:aiohttp.server:Error handling request
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 582, in connect
+    **kwargs)
+  File "/usr/local/Cellar/python/3.6.4_3/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py", line 724, in create_connection
+    raise err
+  File "/usr/local/Cellar/python/3.6.4_3/Frameworks/Python.framework/Versions/3.6/lib/python3.6/socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 61] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2158, in _wrap_pool_connect
+    return fn()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 400, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 788, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 529, in checkout
+    rec = pool._do_get()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1193, in _do_get
+    self._dec_overflow()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 249, in reraise
+    raise value
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1190, in _do_get
+    return self._create_connection()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 347, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 474, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 671, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/strategies.py", line 106, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 412, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_protocol.py", line 390, in start
+    resp = await self._request_handler(request)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_app.py", line 366, in _handle
+    resp = await handler(request)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_middlewares.py", line 106, in impl
+    return await handler(request)
+  File "tianys.py", line 41, in logger
+    return (await handler(request))
+  File "tianys.py", line 68, in response
+    r = await handler(request)
+  File "tianys.py", line 61, in auth
+    return ( await handler(request))
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_urldispatcher.py", line 120, in handler_wrapper
+    result = await result
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/coroweb.py", line 146, in __call__
+    r = self._func(**kw)  # 数据库和字典部分不支持异步
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/coroweb.py", line 30, in wrapper
+    return func(*args, **kw)
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/handlers.py", line 163, in authenticate
+    users = User.getAll(*filters)
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/orm.py", line 71, in getAll
+    users = session.query(User).filter(*filters).all()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2843, in all
+    return list(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2995, in __iter__
+    return self._execute_and_instances(context)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3016, in _execute_and_instances
+    close_with_result=True)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3025, in _get_bind_args
+    **kw
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3007, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1035, in connection
+    execution_options=execution_options)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1040, in _connection_for_bind
+    engine, execution_options)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 409, in _connection_for_bind
+    conn = bind.contextual_connect()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2123, in contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2162, in _wrap_pool_connect
+    e, dialect, self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1476, in _handle_dbapi_exception_noconnection
+    exc_info
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 265, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 248, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2158, in _wrap_pool_connect
+    return fn()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 400, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 788, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 529, in checkout
+    rec = pool._do_get()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1193, in _do_get
+    self._dec_overflow()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 249, in reraise
+    raise value
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 1190, in _do_get
+    return self._create_connection()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 347, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 474, in __init__
+    self.__connect(first_connect_check=True)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/pool.py", line 671, in __connect
+    connection = pool._invoke_creator(self)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/strategies.py", line 106, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 412, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/__init__.py", line 94, in Connect
+    return Connection(*args, **kwargs)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 327, in __init__
+    self.connect()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/pymysql/connections.py", line 629, in connect
+    raise exc
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on '127.0.0.1' ([Errno 61] Connection refused)") (Background on this error at: http://sqlalche.me/e/e3q8)
+INFO:sqlalchemy.engine.base.Engine:SHOW VARIABLES LIKE 'sql_mode'
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:SELECT DATABASE()
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:show collation where `Charset` = 'utf8mb4' and `Collation` = 'utf8mb4_bin'
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8mb4) COLLATE utf8mb4_bin AS anon_1
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT math_oral_cal.id AS math_oral_cal_id, math_oral_cal.user AS math_oral_cal_user, math_oral_cal.cal_date AS math_oral_cal_cal_date, math_oral_cal.consuming_time AS math_oral_cal_consuming_time, math_oral_cal.error_count AS math_oral_cal_error_count, math_oral_cal.createtime AS math_oral_cal_createtime, math_oral_cal.modifytime AS math_oral_cal_modifytime 
+FROM math_oral_cal 
+WHERE math_oral_cal.user = %(user_1)s AND math_oral_cal.cal_date < %(cal_date_1)s AND math_oral_cal.cal_date >= %(cal_date_2)s ORDER BY math_oral_cal.cal_date
+INFO:sqlalchemy.engine.base.Engine:{'user_1': '2', 'cal_date_1': datetime.datetime(2018, 10, 10, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 3, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT math_oral_cal.id AS math_oral_cal_id, math_oral_cal.user AS math_oral_cal_user, math_oral_cal.cal_date AS math_oral_cal_cal_date, math_oral_cal.consuming_time AS math_oral_cal_consuming_time, math_oral_cal.error_count AS math_oral_cal_error_count, math_oral_cal.createtime AS math_oral_cal_createtime, math_oral_cal.modifytime AS math_oral_cal_modifytime 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date >= %(cal_date_1)s AND math_oral_cal.cal_date < %(cal_date_2)s ORDER BY user,cal_date
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 3, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 11, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(param_1)s
+INFO:sqlalchemy.engine.base.Engine:{'param_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT sum(math_oral_cal.error_count) AS error_count_sum, sum(math_oral_cal.consuming_time) AS consuming_time_sum, count(math_oral_cal.consuming_time) AS completed_days, math_oral_cal.user AS math_oral_cal_user 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date >= %(cal_date_1)s AND math_oral_cal.cal_date < %(cal_date_2)s GROUP BY math_oral_cal.user ORDER BY completed_days desc,error_count_sum,consuming_time_sum asc
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 3, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 10, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT math_oral_cal.id AS math_oral_cal_id, math_oral_cal.user AS math_oral_cal_user, math_oral_cal.cal_date AS math_oral_cal_cal_date, math_oral_cal.consuming_time AS math_oral_cal_consuming_time, math_oral_cal.error_count AS math_oral_cal_error_count, math_oral_cal.createtime AS math_oral_cal_createtime, math_oral_cal.modifytime AS math_oral_cal_modifytime 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date < %(cal_date_1)s AND math_oral_cal.cal_date >= %(cal_date_2)s ORDER BY user,cal_date
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 11, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 3, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(param_1)s
+INFO:sqlalchemy.engine.base.Engine:{'param_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT sum(math_oral_cal.error_count) AS error_count_sum, sum(math_oral_cal.consuming_time) AS consuming_time_sum, count(math_oral_cal.consuming_time) AS completed_days, math_oral_cal.user AS math_oral_cal_user 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date >= %(cal_date_1)s AND math_oral_cal.cal_date < %(cal_date_2)s GROUP BY math_oral_cal.user ORDER BY completed_days desc,error_count_sum,consuming_time_sum asc
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 3, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 10, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT math_oral_cal.id AS math_oral_cal_id, math_oral_cal.user AS math_oral_cal_user, math_oral_cal.cal_date AS math_oral_cal_cal_date, math_oral_cal.consuming_time AS math_oral_cal_consuming_time, math_oral_cal.error_count AS math_oral_cal_error_count, math_oral_cal.createtime AS math_oral_cal_createtime, math_oral_cal.modifytime AS math_oral_cal_modifytime 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date >= %(cal_date_1)s AND math_oral_cal.user = %(user_1)s AND math_oral_cal.cal_date < %(cal_date_2)s ORDER BY math_oral_cal.cal_date
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 3, 0, 0), 'user_1': '2', 'cal_date_2': datetime.datetime(2018, 10, 10, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT math_oral_cal.id AS math_oral_cal_id, math_oral_cal.user AS math_oral_cal_user, math_oral_cal.cal_date AS math_oral_cal_cal_date, math_oral_cal.consuming_time AS math_oral_cal_consuming_time, math_oral_cal.error_count AS math_oral_cal_error_count, math_oral_cal.createtime AS math_oral_cal_createtime, math_oral_cal.modifytime AS math_oral_cal_modifytime 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date < %(cal_date_1)s AND math_oral_cal.cal_date >= %(cal_date_2)s ORDER BY user,cal_date
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 11, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 3, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(param_1)s
+INFO:sqlalchemy.engine.base.Engine:{'param_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT sum(math_oral_cal.error_count) AS error_count_sum, sum(math_oral_cal.consuming_time) AS consuming_time_sum, count(math_oral_cal.consuming_time) AS completed_days, math_oral_cal.user AS math_oral_cal_user 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date < %(cal_date_1)s AND math_oral_cal.cal_date >= %(cal_date_2)s GROUP BY math_oral_cal.user ORDER BY completed_days desc,error_count_sum,consuming_time_sum asc
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 10, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 3, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT math_oral_cal.id AS math_oral_cal_id, math_oral_cal.user AS math_oral_cal_user, math_oral_cal.cal_date AS math_oral_cal_cal_date, math_oral_cal.consuming_time AS math_oral_cal_consuming_time, math_oral_cal.error_count AS math_oral_cal_error_count, math_oral_cal.createtime AS math_oral_cal_createtime, math_oral_cal.modifytime AS math_oral_cal_modifytime 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date >= %(cal_date_1)s AND math_oral_cal.cal_date < %(cal_date_2)s AND math_oral_cal.user = %(user_1)s ORDER BY math_oral_cal.cal_date
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 3, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 10, 0, 0), 'user_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT math_oral_cal.id AS math_oral_cal_id, math_oral_cal.user AS math_oral_cal_user, math_oral_cal.cal_date AS math_oral_cal_cal_date, math_oral_cal.consuming_time AS math_oral_cal_consuming_time, math_oral_cal.error_count AS math_oral_cal_error_count, math_oral_cal.createtime AS math_oral_cal_createtime, math_oral_cal.modifytime AS math_oral_cal_modifytime 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date < %(cal_date_1)s AND math_oral_cal.cal_date >= %(cal_date_2)s ORDER BY user,cal_date
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 11, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 3, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(param_1)s
+INFO:sqlalchemy.engine.base.Engine:{'param_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT sum(math_oral_cal.error_count) AS error_count_sum, sum(math_oral_cal.consuming_time) AS consuming_time_sum, count(math_oral_cal.consuming_time) AS completed_days, math_oral_cal.user AS math_oral_cal_user 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date < %(cal_date_1)s AND math_oral_cal.cal_date >= %(cal_date_2)s GROUP BY math_oral_cal.user ORDER BY completed_days desc,error_count_sum,consuming_time_sum asc
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 10, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 3, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:SHOW VARIABLES LIKE 'sql_mode'
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:SELECT DATABASE()
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:show collation where `Charset` = 'utf8mb4' and `Collation` = 'utf8mb4_bin'
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8mb4) COLLATE utf8mb4_bin AS anon_1
+INFO:sqlalchemy.engine.base.Engine:{}
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT math_oral_cal.id AS math_oral_cal_id, math_oral_cal.user AS math_oral_cal_user, math_oral_cal.cal_date AS math_oral_cal_cal_date, math_oral_cal.consuming_time AS math_oral_cal_consuming_time, math_oral_cal.error_count AS math_oral_cal_error_count, math_oral_cal.createtime AS math_oral_cal_createtime, math_oral_cal.modifytime AS math_oral_cal_modifytime 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date < %(cal_date_1)s AND math_oral_cal.cal_date >= %(cal_date_2)s ORDER BY user,cal_date
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 11, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 3, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(param_1)s
+INFO:sqlalchemy.engine.base.Engine:{'param_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT sum(math_oral_cal.error_count) AS error_count_sum, sum(math_oral_cal.consuming_time) AS consuming_time_sum, count(math_oral_cal.consuming_time) AS completed_days, math_oral_cal.user AS math_oral_cal_user 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date >= %(cal_date_1)s AND math_oral_cal.cal_date < %(cal_date_2)s GROUP BY math_oral_cal.user ORDER BY completed_days desc,error_count_sum,consuming_time_sum asc
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 3, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 10, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT math_oral_cal.id AS math_oral_cal_id, math_oral_cal.user AS math_oral_cal_user, math_oral_cal.cal_date AS math_oral_cal_cal_date, math_oral_cal.consuming_time AS math_oral_cal_consuming_time, math_oral_cal.error_count AS math_oral_cal_error_count, math_oral_cal.createtime AS math_oral_cal_createtime, math_oral_cal.modifytime AS math_oral_cal_modifytime 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date >= %(cal_date_1)s AND math_oral_cal.cal_date < %(cal_date_2)s ORDER BY user,cal_date
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 3, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 11, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(param_1)s
+INFO:sqlalchemy.engine.base.Engine:{'param_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': '2'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT sum(math_oral_cal.error_count) AS error_count_sum, sum(math_oral_cal.consuming_time) AS consuming_time_sum, count(math_oral_cal.consuming_time) AS completed_days, math_oral_cal.user AS math_oral_cal_user 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date >= %(cal_date_1)s AND math_oral_cal.cal_date < %(cal_date_2)s GROUP BY math_oral_cal.user ORDER BY completed_days desc,error_count_sum,consuming_time_sum asc
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 3, 0, 0), 'cal_date_2': datetime.datetime(2018, 10, 10, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.id = %(id_1)s
+INFO:sqlalchemy.engine.base.Engine:{'id_1': 3}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT user.id AS user_id, user.account AS user_account, user.password AS user_password, user.name AS user_name, user.`role` AS user_role, user.is_admin AS user_is_admin 
+FROM user 
+WHERE user.account = %(account_1)s
+INFO:sqlalchemy.engine.base.Engine:{'account_1': 'xiewzh'}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+INFO:sqlalchemy.engine.base.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.base.Engine:SELECT math_oral_cal.id AS math_oral_cal_id, math_oral_cal.user AS math_oral_cal_user, math_oral_cal.cal_date AS math_oral_cal_cal_date, math_oral_cal.consuming_time AS math_oral_cal_consuming_time, math_oral_cal.error_count AS math_oral_cal_error_count, math_oral_cal.createtime AS math_oral_cal_createtime, math_oral_cal.modifytime AS math_oral_cal_modifytime 
+FROM math_oral_cal 
+WHERE math_oral_cal.cal_date < %(cal_date_1)s AND math_oral_cal.user = %(user_1)s AND math_oral_cal.cal_date >= %(cal_date_2)s ORDER BY math_oral_cal.cal_date
+INFO:sqlalchemy.engine.base.Engine:{'cal_date_1': datetime.datetime(2018, 10, 10, 0, 0), 'user_1': '2', 'cal_date_2': datetime.datetime(2018, 10, 3, 0, 0)}
+INFO:sqlalchemy.engine.base.Engine:COMMIT
+ERROR:aiohttp.server:Error handling request
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 684, in __getattr__
+    return getattr(self.comparator, key)
+AttributeError: 'Comparator' object has no attribute 'selectable'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_protocol.py", line 390, in start
+    resp = await self._request_handler(request)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_app.py", line 366, in _handle
+    resp = await handler(request)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_middlewares.py", line 106, in impl
+    return await handler(request)
+  File "tianys.py", line 42, in logger
+    return (await handler(request))
+  File "tianys.py", line 69, in response
+    r = await handler(request)
+  File "tianys.py", line 62, in auth
+    return ( await handler(request))
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_urldispatcher.py", line 120, in handler_wrapper
+    result = await result
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/coroweb.py", line 146, in __call__
+    r = self._func(**kw)  # 数据库和字典部分不支持异步
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/coroweb.py", line 17, in wrapper
+    return func(*args, **kw)
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/handlers.py", line 350, in getMathStatistic
+    cals = MathOralCal.getStatistic(*filters, orderby=orderby)
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/orm.py", line 196, in getStatistic
+    'consuming_time_sum'),func.count(MathOralCal.consuming_time).label('completed_days'),MathOralCal.user).filter(*filters).group_by(MathOralCal.user).order_by(orderByStr).all()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2154, in outerjoin
+    from_joinpoint=from_joinpoint)
+  File "<string>", line 2, in _join
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/base.py", line 201, in generate
+    fn(self, *args[1:], **kw)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2288, in _join
+    outerjoin, full, create_aliases, prop)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2341, in _join_left_to_right
+    l_info.selectable is r_info.selectable:
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 690, in __getattr__
+    key)
+AttributeError: Neither 'Label' object nor 'Comparator' object has an attribute 'selectable'
+ERROR:aiohttp.server:Error handling request
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 684, in __getattr__
+    return getattr(self.comparator, key)
+AttributeError: 'Comparator' object has no attribute 'selectable'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_protocol.py", line 390, in start
+    resp = await self._request_handler(request)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_app.py", line 366, in _handle
+    resp = await handler(request)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_middlewares.py", line 106, in impl
+    return await handler(request)
+  File "tianys.py", line 42, in logger
+    return (await handler(request))
+  File "tianys.py", line 69, in response
+    r = await handler(request)
+  File "tianys.py", line 62, in auth
+    return ( await handler(request))
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/aiohttp/web_urldispatcher.py", line 120, in handler_wrapper
+    result = await result
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/coroweb.py", line 146, in __call__
+    r = self._func(**kw)  # 数据库和字典部分不支持异步
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/coroweb.py", line 17, in wrapper
+    return func(*args, **kw)
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/handlers.py", line 350, in getMathStatistic
+    cals = MathOralCal.getStatistic(*filters, orderby=orderby)
+  File "/Users/xieweizhong/code/python/envs/tianys/tianys/www/orm.py", line 196, in getStatistic
+    'consuming_time_sum'),func.count(MathOralCal.consuming_time).label('completed_days'),MathOralCal.user).filter(*filters).group_by(MathOralCal.user).order_by(orderByStr).all()
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2154, in outerjoin
+    from_joinpoint=from_joinpoint)
+  File "<string>", line 2, in _join
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/base.py", line 201, in generate
+    fn(self, *args[1:], **kw)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2288, in _join
+    outerjoin, full, create_aliases, prop)
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 2341, in _join_left_to_right
+    l_info.selectable is r_info.selectable:
+  File "/Users/xieweizhong/code/python/envs/tianys/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 690, in __getattr__
+    key)
+AttributeError: Neither 'Label' object nor 'Comparator' object has an attribute 'selectable'

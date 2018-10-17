@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% block meta %}<!-- block meta -->{% endblock %}
+	<title>{% block title %} ? {% endblock %}-TVMonitoring</title>
+    
+    <link rel="stylesheet" href="/static/css/uikit.min.css" />
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/uikit-icons.min.js"></script>
+    <script src="/static/js/sha1.min.js"></script>
+    <script src="/static/js/axios.min.js"></script>
+    <script src="/static/js/vue.min.js"></script>
+    <script src="/static/js/tvmonitor.js"></script>
+
+    {% block beforehead %}<!-- before head -->{% endblock %}
+</head>
+<body>
+	<div class="uk-container">
+		<nav class="uk-navbar-container uk-margin-bottom" uk-navbar="mode: click">
+		    <div class="uk-navbar-left">
+		    	<img src="/static/images/20171109134540000Yax.png" class="uk-navbar-item uk-logo" style="float:left;width:160px;height:auto;margin:9px 0 0 0;">
+		        <ul class="uk-navbar-nav">
+		            <li><a href="/"><span class="uk-margin-small-right uk-icon" uk-icon="tv"></span>巡检</a></li>
+
+		            <li><a href="monitor_log"><span class="uk-margin-small-right uk-icon" uk-icon="desktop"></span>日志</a></li>
+		        </ul>
+
+		    </div>
+		    <div class="uk-navbar-center">
+		    	<span class="uk-label">上次巡检时间：2018-3-15 18:00</span>
+		    	
+		    </div>
+		    <div class="uk-navbar-right">
+		    	<ul class="uk-navbar-nav">
+		    		{% if __user__ %}
+		    		
+
+					        <ul class="uk-navbar-nav">
+					            <li>
+					                <a href="#"><span>当前值班: {{{ __user__.name }}}</span></a>
+					                <div class="uk-navbar-dropdown">
+					                    <ul class="uk-nav uk-navbar-dropdown-nav">
+					                        <li class="uk-active"><a href="/signout">退出</a></li>
+					                        
+					                    </ul>
+					                </div>
+					            </li>
+					        </ul>
+
+					   
+
+		    		{% else %}
+			    	<li><a href="#" class="uk-icon-link uk-margin-small-right" uk-icon="sign-in">登录</a></li>
+
+			    	{% endif%}
+			    	<li><a href="#" class="uk-icon-link uk-margin-small-left" uk-icon="users" uk-toggle="target: #offcanvas-flip">换班</a></li>
+		    	</ul>
+		    </div>
+		</nav>
+
+
+		<div class="uk-grid-match uk-grid-small" uk-grid>
+			<!-- content -->
+			{% block content %}
+			{% endblock %}
+			<!-- // content -->	    
+		</div>
+
+	</div>
+
+
+	<div class="uk-margin-large-top" style="background-color: #eee; border-top:1px solid #ccc;">
+		<div class="uk-container uk-container-center uk-text-center">
+			<div class="uk-panel uk-margin-top uk-margin-bottom">
+				<p>中国移动通信集团四川有限公司 &copy; &nbsp;&nbsp; -Powered by 易视腾科技股份有限公司</p>
+				
+				
+			</div>
+		</div>
+		
+	</div>
+
+	
+
+	
+
+<div class="uk-offcanvas-content">
+
+    <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
+        <div class="uk-offcanvas-bar uk-offcanvas-bar-animation">
+
+            <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+            <h3>换班交接区</h3>
+
+            <p>在这里增加一个表单，用于记录交接信息和接班人.</p>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

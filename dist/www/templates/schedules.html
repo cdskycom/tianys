@@ -1,0 +1,332 @@
+{% extends 'managebase.html' %}
+
+{% block title %} 排班次管理 {% endblock %}
+
+{% block beforehead %}
+<script type="text/javascript">
+	function initVM(users){
+		var vm = new Vue({
+			el:'#app',
+			data:{
+				title:'',
+				startDate: '',
+				endDate:'',
+				users: users,
+				validateerror:false,
+				validatemessage:'',
+				nums: 2,   //每日班次数 
+				onDutyUser:{},
+				exchangeTime: {
+					day: '9:00',
+					// night: '21:00',
+					// middle: '16:00'
+				},
+				shif:[
+					{name:'一班', value:'1',scheduleList:['全天班']},
+					{name:'两班', value:'2',scheduleList:['白班','晚班']},
+					{name:'三班', value:'3',scheduleList:['白班', '中班','晚班']}
+				],
+				scheduleList:[],
+				needInspectionTask:true,
+				insInterval:2, //每日巡检间隔,例如：9点交班巡检，每小时常规巡检
+
+
+			},
+			computed:{
+				inspections: function(){
+					var todayIns = [];
+					var startTime = parseInt(this.exchangeTime.day.split(':')[0]);
+					var curTime = startTime;
+					while(curTime < startTime + 24){
+						var t = {};
+						t.time = curTime % 24 + ':00';
+						if((curTime - startTime) % (24/this.nums) == 0){
+							t.type = '交班';
+						}else{
+							t.type = '常规';
+						}
+						//获取班次,根据当前时间是否已经超过一个班次的总时间来计算班次，例如3班制，一班应该8小时，2班制一班应12小时。为避免出现正点交班的班次计算出现0的情况，对当前时间向前增加1分钟
+						t.snumber = Math.ceil((curTime + 0.01 - startTime)/(24/this.nums));
+
+						curTime += parseInt(this.insInterval);
+						todayIns.push(t);
+
+					}
+					return todayIns
+				}
+
+			},
+			
+			methods:{
+				
+				addSchedule:function(event){
+					var that = this;
+					this.validateerror = false;
+					event.preventDefault();
+					axios.post('/api/addschedules',{
+						startDate:this.startDate,
+						endDate:this.endDate,
+						users:this.onDutyUser,
+						shiftnums: this.nums,
+						exchangeTime: this.exchangeTime,
+						insInterval: this.insInterval,
+						needInspectionTask:this.needInspectionTask
+						}
+						).then(function(res){
+						
+						if(res.data.error){
+							
+							that.validateerror = true;
+							UIkit.modal.alert(res.data.message).then(function () {
+								console.log('Alert closed.')
+							});
+							
+							return
+						}else{
+							that.validateerror = false;
+							UIkit.modal.confirm(res.data.message).then(function (){
+								console.log('Confirmed.')
+							}, function () {
+								console.log('Rejected.')
+							});
+
+						}
+						
+						
+
+						
+					});
+					// console.log('startTime:' + this.startTime + ' -- ' +  'endTime:' + this.endTime + '--' + 'selectedUser:' + this.onDutyUser );
+					
+				},
+				numChange: function(){
+					
+					this.nums = parseInt(this.nums);
+					if(this.nums ==3 ){
+						this.exchangeTime.day = '8:00';
+						// this.exchangeTime.middle = "16:00";
+						// this.exchangeTime.night = '24:00';
+					}else{
+						this.exchangeTime.day = '9:00';
+					}
+
+                
+
+				},
+				userChange:function(event,n,totalnums){
+					scheduleNum = ['first', 'second', 'third','forth','fifth','sixth']
+					var len = event.target.options.length;
+					var users = []
+					for (var i = 0; i < len; i++) {
+					    opt = event.target.options[i];
+
+					    if (opt.selected) {
+					      users.push(opt.value);
+					      
+					    }
+					}
+					s = 'this.onDutyUser.' + scheduleNum[n-1] + '=users';
+					eval(s)
+				
+				console.log(this.onDutyUser);
+
+
+				},
+				
+				
+				// getDefaultTime:function(n,totalnums){
+				// 	switch(totalnums){
+				// 		case 1:
+				// 			return this.exchangeTime.day;
+				// 		case 2:
+				// 			switch(n){
+				// 				case 1:
+				// 					return this.exchangeTime.day;
+				// 				case 2:
+				// 					return this.exchangeTime.night;
+				// 			}
+				// 		case 3:
+				// 			switch(n){
+				// 				case 1:
+				// 					return this.exchangeTime.day;
+				// 				case 2:
+				// 					return this.exchangeTime.middle;
+				// 				case 3:
+				// 					return this.exchangeTime.night;
+				// 			}
+				// 	}
+				// }
+				
+
+			},
+			mounted: function (){
+				that = this;
+				flatpickr('#st', {
+					onChange: function(selectedDates, dateStr, instance) {
+        			//日期选择框内容赋值给vm变量
+        			that.startDate = dateStr
+
+   				 	}
+				});
+				flatpickr('#et', {
+					onChange: function(selectedDates, dateStr, instance) {
+        			//日期选择框内容赋值给vm变量
+        			that.endDate = dateStr
+   				 	}
+				});
+				
+
+			},
+			filters:{
+				// 显示排版的班次名称：当总班次为1时全天班，当班次为2时，分白班、夜班，班次为3时分白、中、夜班
+				scheduleName:function(value, totalnums){
+					
+					if (totalnums > 1){
+						switch(totalnums){
+							case 2:
+								switch(value){
+									case 1: return '白班';
+									case 2: return '夜班';
+								}
+							case 3:
+								switch(value){
+									case 1: return '白班';
+									case 2: return '中班';
+									case 3: return '夜班';
+								}
+
+						}
+
+					}else{
+						return '全天';
+					}
+					
+
+				}
+			}
+		});
+		
+		
+	}
+
+	window.onload = function(){
+		axios.get('/api/users?page=1&items_perpage=20').then(res=>{initVM(res.data.users)});
+
+	}
+
+	
+
+	
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="uk-width-1-1">
+   
+
+
+	<div  id="app" class="uk-grid-match uk-grid-small uk-grid-divider" uk-grid>
+		  
+		<div class="uk-width-1-2 ">
+		<form >
+	   	 	<fieldset class="uk-fieldset">
+	   	 	<legend class="uk-legend">创建值班表</legend>
+	        <div class="uk-margin">
+	            <label>开始日期: </label><input id="st" class="uk-input uk-width-medium uk-form-small flatpickr flatpickr-input active" type="text" placeholder="选择开始日期..." readonly="readonly" >
+	        </div>
+	        <div class="uk-margin">
+	            <label>结束日期: </label><input id="et" class="uk-input  uk-width-medium  uk-form-small flatpickr flatpickr-input active" type="text" placeholder="选择开始日期..." readonly="readonly" >
+	        </div>
+	         <div class="uk-margin">
+	            <label>每日班次: </label>
+	            <select class="uk-select uk-width-medium uk-form-small" v-model="nums" v-on:change="numChange">
+	            	<option v-for="item in shif" v-bind:value="item.value">{{ item.name }}</option>
+                                      
+                </select>
+	        </div>
+	        <div class="uk-margin">
+	         	<label>换班时间: </label>
+	            <input class="uk-input uk-width-small uk-form-small" v-model="exchangeTime.day" >
+	            <label><input class="uk-checkbox" type="checkbox" v-model="needInspectionTask"> 生成巡检任务</label>
+	            
+	        
+	        </div>
+	         <div class="uk-margin">
+	         	<label>值班人员: </label>
+	            <ul class="uk-navbar-nav">
+	            	<li class="uk-list" v-for="(n,index) in nums" v-bind:key="index">
+	            		{{ n | scheduleName(nums) }} : 
+	            		<select class="uk-select uk-width-small uk-form-small"  v-on:change="userChange($event,n,nums)" multiple="multiple" >
+	            			<option value="-1" selected="">请选择</option>
+			            	<option v-for="user in users" v-bind:value="user.id" v-bind:key="user.id">{{ user.name }}</option>
+		                                      
+		                </select>
+	            	</li>
+	            	
+	            </ul>
+	        </div>
+	        
+	        <div class="uk-form-row">
+	                <button class="uk-button uk-button-primary" v-on:click="addSchedule">生成排班计划</button>
+	                
+	        </div>
+
+    		</fieldset>
+		</form>
+
+	</div>
+
+	<div v-if="needInspectionTask" class="uk-width-1-2">
+		<form >
+		<legend class="uk-legend">日巡检任务预览</legend>
+		<label>巡检周期: </label>
+		<select class="uk-select uk-width-small uk-form-small" v-model="insInterval">	        
+			<option value="1">一小时</option>
+			<option value="2">两小时</option>
+			<option value="3">三小时</option>
+		</select>
+ 		
+		<table class="uk-table uk-table-small uk-table-divider uk-table-striped uk-text-small">
+		    <thead>
+		        <tr>
+		            <th class="uk-width-medium">时间</th>
+		            <th class="uk-width-medium">任务类型</th>    
+		            <th class="uk-width-medium">班次</th> 
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr v-for="ins in inspections">
+		            <td><span v-text="ins.time"></span></td>
+		            
+		            <td><span v-text="ins.type"></span></td>
+		            <td><span v-text="ins.snumber"></span></td>
+
+
+		        </tr>
+		        
+		    </tbody> 
+
+		</table>
+	</form>
+	
+	</div>
+
+	
+		
+	</div>
+	
+</div>
+	
+		    
+{% endblock %}
+
+	  
+
+
+
+	
+
+	
+

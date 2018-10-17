@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block title %} 巡检首页 {% endblock %}
+
+{% block content %}
+
+
+<div class="uk-width-1-5">
+    <div class="uk-card  uk-card-default uk-card-small uk-card-body uk-text-small">
+    	
+    		<!-- <div class="uk-card uk-card-default uk-card-body" uk-sticky="bottom: #offset"> -->
+    			
+    		
+	    	<div>
+	    		<h5 class="uk-text-primary">交班注意事项<i class="uk-icon" uk-icon="bell"></i></h5>
+	    		<p>
+	    		请注意，今晚移动领导要求配合大网割接，互联网组将组织CR3割接，完成割接后会通知我们验证电视业务是否正常。如果出现问题要及时通知 xxxx ，电话：xxxxx。祝你愉快!UIkit 是 YOOtheme 团队开发的一款轻量级、模块化的前端框架，可快速构建强大的web前端界面。UIKit提供了全面的HTML、CSS及JS组件，它们使用简单，容易定制和扩展。它基于LESS开发，代码结构清晰简单，易于扩展和维护，并且具有体积小、反应灵敏的响应式组件，你可以根据 UIKit 基本的风格样式，轻松地自定义创建出自己喜欢的主题样式。
+	    		</p>
+			</div>	
+	    		
+	    	<hr>
+    		<!-- </div> -->
+    	
+    		<h5 class="uk-text-primary">尚未完成处理闭环的问题</h5>
+    		<ul class="uk-list uk-list-divider">
+    			<li>1</li>
+    			<li>2</li>
+    			<li>3</li>
+    			<li>4</li>
+    			<li>5</li>
+    		</ul>
+    		<div>
+    			<a href="#">More...</a>
+    		</div>
+    </div>
+    	
+	
+		
+	
+</div>
+
+
+
+<div class="uk-width-4-5">
+	<div class="uk-card uk-card-small uk-card-body uk-overflow-auto">
+	<form>
+		<table class="uk-table uk-table-middle uk-table-small uk-table-divider uk-table-striped uk-text-small">
+		    <thead>
+		        <tr>
+		            <th class="uk-width-small">类别</th>
+		            <th class="uk-width-medium">巡检类容</th>
+		            <th>判断标准</th>
+		            <th class="uk-width-small">巡检状态</th>
+
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr>
+		            <td>直播类</td>
+		            
+		            <td>打开直播EPG，确认加载时间和节目单是否正常</td>
+		            <td></td>
+		            <td>
+		            	<div class="uk-margin">
+					        
+					            <select class="uk-form-small uk-form-danger">
+					                <option value="1">未巡检</option>
+					                <option value="2">正 常</option>
+					                <option value="3" selected="">异 常</option>
+					            </select>        
+					        	<a href="#modal-center" uk-toggle><span class="uk-margin-small-right uk-icon" uk-icon="file-edit"></span></a>
+					        	<div id="modal-center" class="uk-flex-top" uk-modal>
+								    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+								        <button class="uk-modal-close-default" type="button" uk-close></button>
+								        <div class="uk-margin-small">
+									        <p>今晚运维又睡不成了,来写一下咋回事</p>
+									        
+									        <textarea class="uk-textarea" rows="5"></textarea>
+								        </div>
+
+								    </div>
+								</div>
+					    </div>
+		            </td>
+
+		        </tr>
+		        <tr>
+		            <td>EPG首页</td>
+		            
+		            <td>检查首页panel是否加载正常，推荐位图片是否正常显示，有无违规内容</td>
+		            <td></td>
+		            <td>
+		            	<div class="uk-margin">
+					        
+					            <select class="uk-form-small uk-form-success">
+					                
+					                <option value="1">未巡检</option>
+					                <option value="2" selected="">正 常</option>
+					                <option value="3">异 常</option>
+					            </select>
+					            
+					            
+					        
+					    </div>
+		            </td>
+		        </tr>
+		        <tr>
+		            <td>点播类</td>
+		            
+		            <td>进入点播栏目树，查看每个栏目是否正常加载，并对前10个一级栏目中的前5个二级栏目进行播放检查</td>
+		            <td></td>
+		            <td>
+		            	<div class="uk-margin">
+					        	
+					            <select class="uk-form-small">
+					                
+					                <option value="1" selected="">未巡检</option>
+					                <option value="2">正 常</option>
+					                <option value="3">异 常</option>
+					            </select>
+					            <a href="#modal-center2" uk-toggle><span class="uk-margin-small-right uk-icon" uk-icon="file-edit"></span></a>
+					        	<div id="modal-center2" class="uk-flex-top" uk-modal>
+								    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+								        <button class="uk-modal-close-default" type="button" uk-close></button>
+
+								        <p>你娃为啥不巡检</p>
+								        <p>不想混了哇</p>
+
+								    </div>
+								</div>
+					            
+					        
+					    </div>
+		            </td>
+		        </tr>
+		    </tbody>
+		</table>
+		<div class="uk-margin uk-text-left">
+			<button class="uk-button uk-button-primary">提交本次巡检结果</button>
+		</div>
+	</form>
+	</div>
+</div>
+
+	
+	
+		
+		
+		    
+{% endblock %}
+	  
+
+
+
+	
+
+	
+

@@ -1,0 +1,198 @@
+{% extends 'managebase.html' %}
+
+{% block title %} 巡检项管理 {% endblock %}
+
+{% block beforehead %}
+<script type="text/javascript">
+	function initVM(types){
+		var vm = new Vue({
+			el:'#app',
+			data:{
+				types:types,
+				typecode:[],
+				content:'',
+				criterion:''
+
+			},
+			computed:{
+
+				
+			},
+			
+			methods:{
+				
+				
+					
+				
+
+			}
+			
+		});
+		
+		
+	}
+
+	window.onload = function(){
+		axios.get('/api/gettype').then(res=>{initVM(res.data.types)});
+
+	}
+
+	
+
+	
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="app" class="uk-width-1-1">
+	<div >
+	<a class="uk-button uk-button-default uk-button-small" href="#modal-add" uk-toggle>添加</a>
+	<a class="uk-button uk-button-default uk-button-small" href="#modal-edit" uk-toggle>编辑</a>
+	<input  type="text" placeholder="">
+	<select>
+		
+	</select>
+	
+    </div>
+
+
+	<div id="modal-add" uk-modal bg-close="false">
+	    <div class="uk-modal-dialog">
+	        
+	        <div class="uk-modal-header">
+	            <h2 class="uk-modal-title">新增巡检项</h2>
+	        </div>
+	        <div class="uk-modal-body">
+
+
+				    <div class="uk-margin">
+			            <label>巡检内容:</label><textarea class="uk-textarea" rows="3" v-modal="content" placeholder="输入巡检内容"></textarea>
+			        </div>
+
+			        <div class="uk-margin">
+			            <label>判断标准:</label><textarea class="uk-textarea" rows="3" v-modal="criterion" placeholder="判断标准描述"></textarea>
+			        </div>
+				    
+				    <div class="uk-margin">
+			        	
+						    <ul >
+								<li class="tv-horizontal-list" v-for="type in types">
+									<label><input class="uk-checkbox" type="checkbox" v-bind:value="type[0]" v-modal="typecode"> {{ type[1] }}</label>
+								</li>
+							</ul>
+					</div>
+
+	            
+	        </div>
+	        <div class="uk-modal-footer uk-text-right">
+	            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+	            <button class="uk-button uk-button-primary uk-modal-close" type="button">Save</button>
+	        </div>
+	    </div>
+	</div>
+
+	<div id="modal-edit" uk-modal bg-close="false">
+	    <div class="uk-modal-dialog">
+	    	<div class="uk-modal-header">
+	            <h2 class="uk-modal-title">编辑巡检项</h2>
+	        </div>
+	        <div class="uk-modal-body">
+
+
+				    <div class="uk-margin">
+			            <label>巡检内容:</label><textarea class="uk-textarea" rows="3" v-modal="content" placeholder="输入巡检内容"></textarea>
+			        </div>
+
+			        <div class="uk-margin">
+			            <label>判断标准:</label><textarea class="uk-textarea" rows="3" v-modal="criterion" placeholder="判断标准描述"></textarea>
+			        </div>
+				    
+				    <div class="uk-margin">
+			        	
+						    <ul >
+								<li class="tv-horizontal-list" v-for="type in types">
+									<label><input class="uk-checkbox" type="checkbox" v-bind:value="type[0]" v-modal="typecode"> {{ type[1] }}</label>
+								</li>
+							</ul>
+					</div>
+
+	            
+	        </div>
+	        <div class="uk-modal-footer uk-text-right">
+	            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+	            <button class="uk-button uk-button-primary uk-modal-close" type="button">Save</button>
+	        </div>
+	    </div>
+	</div>
+
+
+
+
+	
+	
+
+
+	
+		<!-- <form >
+	   	 	<fieldset class="uk-fieldset">
+	   	 	<legend class="uk-legend">创建值班表</legend>
+	        <div class="uk-margin">
+	            <label>开始日期: </label><input id="st" class="uk-input uk-width-medium uk-form-small flatpickr flatpickr-input active" type="text" placeholder="选择开始日期..." readonly="readonly" >
+	        </div>
+	        <div class="uk-margin">
+	            <label>结束日期: </label><input id="et" class="uk-input  uk-width-medium  uk-form-small flatpickr flatpickr-input active" type="text" placeholder="选择开始日期..." readonly="readonly" >
+	        </div>
+	         <div class="uk-margin">
+	            <label>每日班次: </label>
+	            <select class="uk-select uk-width-medium uk-form-small" v-model="nums" v-on:change="numChange">
+	            	<option v-for="item in shif" v-bind:value="item.value">{{ item.name }}</option>
+                                      
+                </select>
+	        </div>
+	        <div class="uk-margin">
+	         	<label>换班时间: </label>
+	            <input class="uk-input uk-width-small uk-form-small" v-model="exchangeTime.day" >
+	            <label><input class="uk-checkbox" type="checkbox" v-model="needInspectionTask"> 生成巡检任务</label>
+	            
+	        
+	        </div>
+	         <div class="uk-margin">
+	         	<label>值班人员: </label>
+	            <ul class="uk-navbar-nav">
+	            	<li class="uk-list" v-for="(n,index) in nums" v-bind:key="index">
+	            		{{ n | scheduleName(nums) }} : 
+	            		<select class="uk-select uk-width-small uk-form-small"  v-on:change="userChange($event,n,nums)" multiple="multiple" >
+	            			<option value="-1" selected="">请选择</option>
+			            	<option v-for="user in users" v-bind:value="user.id" v-bind:key="user.id">{{ user.name }}</option>
+		                                      
+		                </select>
+	            	</li>
+	            	
+	            </ul>
+	        </div>
+	        
+	        <div class="uk-form-row">
+	                <button class="uk-button uk-button-primary" v-on:click="addSchedule">生成排班计划</button>
+	                
+	        </div>
+
+    		</fieldset>
+		</form> -->
+
+	
+	
+</div>
+	
+		    
+{% endblock %}
+
+	  
+
+
+
+	
+
+	
+

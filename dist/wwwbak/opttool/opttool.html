@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>直播频道查看</title>
+    
+    <link rel="stylesheet" href="/static/css/uikit.min.css" />
+    <link rel="stylesheet" href="/static/css/tvmonitor.css" />
+    
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/uikit-icons.min.js"></script>
+    
+    <script src="/static/js/axios.min.js"></script>
+    <script src="/static/js/vue.min.js"></script>
+    <script src="/static/js/tvmonitor.js"></script>
+    
+    
+    
+</head>
+<body>
+	
+<div uk-sticky="media: 960" class="uk-navbar-container tm-navbar-container uk-sticky uk-sticky-fixed uk-active uk-sticky-below" style="position: fixed; top: 0px; width: 1440px;">
+	<div class="uk-container uk-container-expand">
+		<nav class="uk-navbar uk-margin-bottom" uk-navbar="mode: click"" >
+			<div class="uk-navbar-left">
+				<h3 class="tv-header" >四川移动家庭电视巡检管理系统后台</h3>
+            </div> 
+           
+		   
+       </nav>
+   </div>
+</div>
+
+<div class="uk-section uk-section-small">
+	<div id="app" class="uk-container">
+		<div class="uk-grid-match uk-grid-small" uk-grid>
+				CDNID: <input  type="text" placeholder="cdnid..." v-model="cdnid">
+				<button class="uk-button uk-button-primary" v-on:click="getnewprograms">Go</button>
+		</div>	
+		<div v-if="content">	
+				<table class="uk-table uk-table-middle uk-table-striped uk-table-divider">
+				    <thead>
+				        <tr>
+				            <th width="13%">频道名称</th>
+				            <th width="10%">UUID</th>
+				            <th width="33%">直播地址</th>
+				            <th width="424%">动作地址</th>
+
+				        </tr>
+				    </thead>
+				    <tbody>
+				       
+				        <tr v-for="channel in content">
+				        	<td><span>{{ channel.channelName }}</span></td>
+				        	<td><span>{{ channel.programes[0].uuid }}</span></td>
+				        	<td style="word-wrap:break-word;word-break:break-all;"><span>{{ channel.programes[0].programUrl }}</span></td>
+				        	<td style="word-wrap:break-word;word-break:break-all;"><span v-text="actionPrefix + '&templateId=' + cdnid + '&catgId=' + channel.programes[0].uuid"></span></td>
+				        </tr>
+				        
+				    </tbody> 
+
+				</table>
+		</div>
+	</div>		
+	
+</div>
+
+
+
+<script type="text/javascript">
+	var actionPrefix="http://jtdsepg.cdzgys.cn/watchTV2.0/watchTV11.0/index.html?businessType=livereplay&mediaType=live&fromwhere=playback"
+    	
+    	var vm = new Vue({
+    		el:'#app',
+    		data:{
+    			cdnid:'02850',
+    			content:'',
+    			catgTotalLength:0,
+    			url:'http://112.54.201.53:7070/ysten-lvoms-epg/epg/getNewPrograms.shtml?actionType=OpenNew&deviceGroupId=&districtCode=&templateId='
+    		},
+    		methods:{
+    			getnewprograms:function(){
+    				that = this;
+    				url = this.url + this.cdnid;
+    				console.log(this.cdnid);
+    				axios.interceptors.response.use(function(res){
+    					console.log('interceptors:' + res)
+    					return res
+    				});
+    				axios.get(url).then(function(res){
+    					that.content = res.data.content;
+
+    					that.catgTotalLength = res.data.catgTotalLength;
+
+    				});
+    			},
+
+    		}
+    	});
+
+    </script>
+	
+
+	
+
+
+
+</body>
+</html>

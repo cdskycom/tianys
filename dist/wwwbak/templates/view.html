@@ -1,0 +1,146 @@
+{% extends 'tianysbase.html' %}
+
+{% block title %} 概览 {% endblock %}
+
+{% block beforehead %}
+
+
+{% endblock %}
+
+{% block content %}
+ <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        成绩查看(仅教师和管理员可见所有学生成绩)
+        <small>成绩排行</small>
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section id="app" class="content container-fluid" v-cloak>
+      <div class="row form-group">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">{{ tableTitle + '统计' }} </h3>
+              <div class="pull-right hidden-xs">
+                <span>开始时间：</span><input type="date" v-model="stime">
+                <span>截止时间：</span><input type="date" v-model="etime">
+                <button class="btn btn-info btn-small" v-on:click="adjustDays">GO</button>
+              </div>
+              <div class="visible-xs">
+                <div><span>开始时间：</span><input type="date" v-model="stime"></div>
+                <div>
+                  <span>截止时间：</span><input type="date" v-model="etime">
+                  <button class="btn btn-info btn-small" v-on:click="adjustDays">GO</button>
+                </div>
+              </div>
+            </div>  
+            
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <table class="table">
+                <tbody>
+                <tr>
+                  
+                  <th >姓名</th>
+                  <th >完成天数</th>
+                  <th >错题数量</th>
+                  <th >总时间</th>
+                </tr>
+                <tr v-for="s in statisticCals">
+                  
+                  <td><span>{{ s.name }}</span></td>
+                  <td><span >{{ s.days }}</span></td>
+                  <td><span >{{ s.error }}</span></td>
+                  <td><span >{{ s.time | consumingTimeToStr}}</span></td>
+                </tr>
+               
+              </tbody></table>
+             
+            </div>
+            <div class="box-footer clearfix">
+              
+            </div>
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        </div>
+
+
+
+      <div class="row form-group">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">{{ tableTitle + '明细' }} </h3>
+              
+            </div>  
+            
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <table class="table">
+                <tbody>
+                <tr>
+                  
+                  <th >姓名</th>
+                  <th >日期</th>
+                  <th >计时</th>
+                  <th >错题数量</th>
+                </tr>
+                <tr v-for="cal in cals">
+                  
+                  <td><span>{{ cal.student.name }}</span></td>
+                  <td><span >{{ cal.cal_date | DateTimeFtt }}</span></td>
+                  <td><span >{{ cal.consuming_time | consumingTimeToStr}}</span></td>
+                  <td><span >{{ cal.error_count }}</span></td>
+                  
+                </tr>
+               
+              </tbody></table>
+             
+            </div>
+            <div class="box-footer clearfix">
+              
+            </div>
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        </div>
+
+
+
+
+          <div class="modal fade in" id="modal-message" style="display: none;">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title"><span>{{ messageTitle }}</span></h4>
+                </div>
+                <div class="modal-body">
+                  <p><span>{{ message }}</span></p>
+                </div>
+            <!-- /.modal-dialog -->
+              </div>
+            </div>
+          </div>
+
+    </section>
+    <!-- /.content -->
+    <script type="text/javascript">
+        var userinfo = {
+                   uid: '{{{ __user__.id }}}'
+                   
+        };
+        
+
+    </script>
+    <script src="/static/js/view.js? + Math.random()"></script>
+
+{% endblock %}
